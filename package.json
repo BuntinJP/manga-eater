@@ -1,11 +1,21 @@
 {
-  "name": "manga-eater",
-  "version": "1.0.0",
-  "description": "",
-  "main": "scrape.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+    "name": "manga-eater",
+    "version": "1.0.0",
+    "description": "",
+    "main": "scrape.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "scrape": "node scrape.js",
+        "discord": "node discord.js",
+        "py": "python -V",
+        "purge-win": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./purge.ps1",
+        "purge-linux": "sh ./purge.sh"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "discord.js": "^14.9.0",
+        "request": "^2.88.2",
+        "toml": "^3.0.0"
+    }
 }
