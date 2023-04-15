@@ -1,10 +1,16 @@
 // read file
 const fs = require('fs');
+const fse = require('fs-extra');
+const execSync = require('child_process').execSync;
 const { exit } = require('process');
 const request = require('request');
 const path = require('path');
-const file = fs.readFileSync('test.html', 'utf8');
+const file = fs.readFileSync('target.html', 'utf8');
 
+//do shell
+const shell = (cmd) => {
+    return execSync(cmd).toString();
+};
 // split file into array of lines
 const lines = file.split('\n');
 
@@ -13,17 +19,25 @@ let urls = [];
 lines.forEach((line) => {
     const ary = line.split('"');
     for (let i = 0; i < ary.length; i++) {
-        if (ary[i].includes('http')) {
+        if (
+            ary[i].includes('jpg') ||
+            ary[i].includes('png') ||
+            ary[i].includes('jpeg')
+        ) {
             urls.push(ary[i]);
         }
     }
 });
+
+console.log(urls);
 
 //file name generate
 let filenames = [];
 urls.forEach((url) => {
     filenames.push(url.split('/').pop());
 });
+
+console.log(filenames);
 
 //check if urls.length === filenames.length
 if (urls.length === filenames.length) {
@@ -35,7 +49,7 @@ if (urls.length === filenames.length) {
 
 //download files with time bound
 
-const timebound = 1000; //(ms)
+const timebound = 500; //(ms)
 const directory = './out';
 
 const fetchWithTimebound = async (
@@ -45,6 +59,7 @@ const fetchWithTimebound = async (
     directory = ''
 ) => {
     for (let i = 0; i < urls.length; i++) {
+        console.log(`downloaded ${i + 1} of ${urls.length}`);
         request(
             { method: 'GET', url: urls[i], encoding: null },
             (err, res, body) => {
@@ -61,4 +76,6 @@ const fetchWithTimebound = async (
     }
 };
 
-fetchWithTimebound(urls, filenames, timebound, directory);
+//fetchWithTimebound(urls, filenames, timebound, directory);
+
+export default fetchWithTimebound;

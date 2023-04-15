@@ -4,17 +4,23 @@
     "description": "",
     "main": "scrape.js",
     "scripts": {
+        "serve": "node server.js",
         "test": "echo \"Error: no test specified\" && exit 1",
         "scrape": "node scrape.js",
         "discord": "node discord.js",
         "py": "python -V",
         "purge-win": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./purge.ps1",
-        "purge-linux": "sh ./purge.sh"
+        "purge-linux": "sh ./purge.sh",
+        "purge-archive": "node ./commands/purge-archive.js"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "body-parser": "^1.20.2",
+        "cors": "^2.8.5",
         "discord.js": "^14.9.0",
+        "express": "^4.18.2",
+        "fs-extra": "^11.1.1",
         "request": "^2.88.2",
         "toml": "^3.0.0"
     }
