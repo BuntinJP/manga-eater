@@ -121,7 +121,6 @@ const pushToDiscord = (title, token, channelID, directory) => {
 app.post('/', async (req, res) => {
     const title = req.body.title;
     const urls = req.body.urls;
-    const token = req.body.token;
     const channelID = "1092900938592829471";
     let filenames = [];
     urls.forEach((url) => {
