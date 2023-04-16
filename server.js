@@ -4,31 +4,32 @@ const fs = require('fs');
 const config = toml.parse(fs.readFileSync('./discord.toml', 'utf8'));
 console.log(config.token);
 const path = require('path');
-const app = express(); const allowCrossDomain = function (req, res, next) {
+const app = express();
+const request = require('request');
+const bodyParser = require('body-parser');
+
+
+
+
+const {
+    Client,
+    GatewayIntentBits,
+} = require('discord.js');
+const allowCrossDomain = (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
     res.header(
         'Access-Control-Allow-Headers',
         'Content-Type, Authorization, access_token'
     )
-
-    // intercept OPTIONS method
     if ('OPTIONS' === req.method) {
         res.send(200)
     } else {
         next()
     }
 }
-const {
-    Client,
-    GatewayIntentBits,
-} = require('discord.js');
-
-const request = require('request');
 
 app.use(allowCrossDomain);
-
-const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
